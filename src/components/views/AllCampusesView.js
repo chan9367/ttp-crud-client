@@ -10,20 +10,19 @@ const AllCampusesView = (props) => {
 
   return (
     <div className="all-campuses">
-      <Link to="/campuses/new" className="add-campus">
-        New Campus
-      </Link>
-      <div>
+      <div class="card-deck">
         {props.allCampuses.map((campus) => (
-          <div key={campus.id}>
+          <div class="card border-info mb-3"  key={campus.id}>
+            <img src={campus.imageUrl} class="card-img-top" alt={campus.name} />
+            <div class="card-body">
             <Link to={`/campuses/${campus.id}`}>
-              <h1>{campus.name}</h1>
+              <h1 class="card-title">{campus.name}</h1>
             </Link>
-            <img src={campus.imageUrl} width="200px" alt={campus.name} />
-            <p>{campus.students.length} students</p>
+            <p class="card-text">{campus.students.length} students</p>
             <button onClick={() => props.handleDelete(campus.id)}>
               Delete
             </button>
+            </div>
           </div>
         ))}
       </div>
