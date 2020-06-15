@@ -1,43 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+import React from "react";
+import "./styles/AllCampusesView.css";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+const AllCampusesView = (props) => {
+  if (!props.allCampuses.length) {
+    return <div className="all-campuses">There are no campuses</div>;
+  }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  return (
+    <div className="all-campuses">
+      <div class="card-deck">
+        {props.allCampuses.map((campus) => (
+          <div class="card border-info mb-3"  key={campus.id}>
+            <img src={campus.imageUrl} class="card-img-top" alt={campus.name} />
+            <div class="card-body">
+            <Link to={`/campuses/${campus.id}`}>
+              <h1 class="card-title">{campus.name}</h1>
+            </Link>
+            <p class="card-text">{campus.students.length} students</p>
+            <button onClick={() => props.handleDelete(campus.id)}>
+              Delete
+            </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
-</html>
+AllCampusesView.propTypes = {
+  allCampuses: PropTypes.array.isRequired,
+};
+
+export default AllCampusesView;
