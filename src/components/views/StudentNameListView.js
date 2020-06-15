@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles/StudentNameListView.css";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const StudentNameListView = (props) => {
@@ -22,5 +23,6 @@ const StudentNameListView = (props) => {
     </>
   );
 };
+
 
 export default StudentNameListView;
